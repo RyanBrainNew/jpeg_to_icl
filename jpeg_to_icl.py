@@ -37,7 +37,8 @@ if __name__=='__main__':
     # 寻找SOS的长度标识
     sos_len = w.jpeg_bytes[sos_index+3]
     # 定位SOS结束位置
-    jpeg_header_len = sos_index + sos_len
+    # 例如SOS段数据起始为FF DA 00 0C，上面取的是FF位置，实际从0C之后开始计算，最后需要+3，。因为下面公式中的变量都是地址，实际长度需要+1
+    jpeg_header_len = sos_index + sos_len + 3 + 1
     jpeg_total_len = len(w.jpeg_bytes)
     jpeg_file_len = (jpeg_total_len -jpeg_header_len)
 
